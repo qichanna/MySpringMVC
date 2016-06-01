@@ -21,6 +21,13 @@
         <context:include-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/viewAll.form"/>
+            <bean class="main.liqi.TestInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <!-- HandlerMapping, 无需配置， Spring MVC可以默认启动。 DefaultAnnotationHandlerMapping
         annotation-driven HandlerMapping -->
