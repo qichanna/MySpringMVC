@@ -2,10 +2,7 @@ package main.mvcbind;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by liqi7 on 2016/6/2.
@@ -82,5 +79,17 @@ public class MyController {
     @ResponseBody
     public String map(UserMapForm userMapForm){
         return userMapForm.toString();
+    }
+
+    @RequestMapping(value = "json",method = RequestMethod.GET)
+    @ResponseBody
+    public String json(@RequestBody User user){
+        return user.toString();
+    }
+
+    @RequestMapping(value = "xml",method = RequestMethod.GET)
+    @ResponseBody
+    public String xml(@RequestBody Admin admin){
+        return admin.toString();
     }
 }
