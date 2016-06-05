@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -85,12 +86,27 @@ public class MyController {
         return userMapForm.toString();
     }
 
+    //    {
+//        "name": "Jim",
+//            "age": 16,
+//            "contactInfo": {
+//                "address": "beijing",
+//                "phone": "10010"
+//              }
+//    }
+    //application/json
     @RequestMapping(value = "json",method = RequestMethod.GET)
     @ResponseBody
     public String json(@RequestBody User user){
         return user.toString();
     }
 
+    //    <?xml version="1.0" encoding="UTF-8" ?>
+//    <admin>
+//      <name>Jim</name>
+//      <age>16</age>
+//    </admin>
+    //application/xml
     @RequestMapping(value = "xml",method = RequestMethod.GET)
     @ResponseBody
     public String xml(@RequestBody Admin admin){
@@ -106,5 +122,45 @@ public class MyController {
     @InitBinder("date1")
     public void initDate1(WebDataBinder binder){
         binder.registerCustomEditor(Date.class,new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"),true));
+    }
+
+    //RESTful
+
+    @RequestMapping(value = "/book",method = RequestMethod.GET)
+    @ResponseBody
+    public String book(HttpServletRequest request){
+        String contentType = request.getContentType();
+        if(contentType == null){
+            return "book.default";
+        }else if(contentType.equals("txt")){
+            return "book.txt";
+        }else if(contentType.equals("html")){
+            return "book.html";
+        }
+        return "book.default";
+    }
+
+    @RequestMapping(value = "/subject/{subjectId}",method = RequestMethod.GET)
+    @ResponseBody
+    public String subjectGet(@PathVariable("subjectId") String subjectId){
+        return "this is a get method,subjectId:"+subjectId;
+    }
+
+    @RequestMapping(value = "/subject/{subjectId}",method = RequestMethod.POST)
+    @ResponseBody
+    public String subjectPost(@PathVariable("subjectId") String subjectId){
+        return "this is a post method,subjectId:"+subjectId;
+    }
+
+    @RequestMapping(value = "/subject/{subjectId}",method = RequestMethod.DELETE)
+    @ResponseBody
+    public String subjectDelete(@PathVariable("subjectId") String subjectId){
+        return "this is a delete method,subjectId:"+subjectId;
+    }
+
+    @RequestMapping(value = "/subject/{subjectId}",method = RequestMethod.PUT)
+    @ResponseBody
+    public String subjectPut(@PathVariable("subjectId") String subjectId){
+        return "this is a put method,subjectId:"+subjectId;
     }
 }
