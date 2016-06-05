@@ -1,8 +1,12 @@
 package main.mvcbind;
 
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by liqi7 on 2016/6/2.
@@ -91,5 +95,16 @@ public class MyController {
     @ResponseBody
     public String xml(@RequestBody Admin admin){
         return admin.toString();
+    }
+
+    @RequestMapping(value = "date1")
+    @ResponseBody
+    public String date1(Date date1){
+        return date1.toString();
+    }
+
+    @InitBinder("date1")
+    public void initDate1(WebDataBinder binder){
+        binder.registerCustomEditor(Date.class,new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"),true));
     }
 }
