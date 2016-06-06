@@ -13,5 +13,13 @@
 </head>
 <body>
     <c:out value="this is first jstl demo"></c:out>
+    <!-- 使用out标签输出常量 -->
+    <c:out value="This is our first JSTL demo"></c:out><br>
+    <c:out value="${username}" default="fff"></c:out><br>
+    <c:out value="${1+2}"></c:out><br>
+    <%String username = "zhangsan"; request.setAttribute("username", username);%>
+    <c:out value="${empty username1}"></c:out><br>
+    <c:out value="${username1}" default="aaa"></c:out><br>
+    <c:out value="&ltdffgg标签&gt" escapeXml="false"></c:out><br>
 </body>
 </html>
