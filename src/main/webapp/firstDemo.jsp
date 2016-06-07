@@ -14,6 +14,20 @@
 </head>
 <body>
     <c:out value="this is first jstl demo"></c:out>
+
+
+    <form action="firstDemo.jsp" method="post">
+        <input type="text" name="role">
+        <input type="submit" name="登录">
+    </form>
+    <c:if test="${param.role=='admin'}">
+        <c:out value="欢迎管理员"></c:out>
+    </c:if>
+    <br>
+
+
+
+
     <!-- 使用out标签输出常量 -->
     <c:out value="This is our first JSTL demo"></c:out><br>
     <c:out value="${username}" default="fff"></c:out><br>
