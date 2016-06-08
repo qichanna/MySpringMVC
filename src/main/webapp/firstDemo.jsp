@@ -1,5 +1,7 @@
 <%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %><%--
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.io.Reader" %>
+<%@ page import="java.io.IOException" %><%--
   Created by IntelliJ IDEA.
   User: liqi
   Date: 2016/6/5
@@ -175,5 +177,43 @@
         <c:import url="tt.txt"></c:import>
     </c:catch>
     <c:out value="${error08}"></c:out><br>
+
+    <!-- var及scope属性的用法 -->
+    <c:catch var="error07">
+        <c:import url="tt.txt" var="tt" scope="session" charEncoding="gbk"></c:import>
+    </c:catch>
+    <c:out value="${error07}"></c:out><br>
+    <c:out value="import标签存储的tt字符串变量值为：${sessionScope.tt}"></c:out><br>
+
+    <!-- context属性的用法 -->
+    <%--<c:catch var="error06">
+        <c:import url="/importFile.jsp" context="/AnotherWebProject"></c:import>
+    </c:catch>
+    <c:out value="${error06}"></c:out><br>--%>
+
+    <!-- varReader属性的用法 -->
+    <%--<c:import url="tt.txt" varReader="tt" charEncoding="gbk">
+        <c:set var="strTT" value="${tt}" scope="session"></c:set>
+        <%
+            Reader r = (Reader)session.getAttribute("strTT");
+            char[] buffer = new char[256];
+            try{
+                int dataLen = r.read(buffer);
+                String result = new String(buffer, 0, dataLen-1);
+                System.out.print(result);
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+        %>
+    </c:import>--%>
+<br>
+<c:out value="username是:${param.username}"></c:out><br>
+<c:out value="password是:${param.password}"></c:out><br>
+
+<c:if test="${1<3}">
+    <c:set var="partUrl">aabbcc</c:set>
+</c:if>
+<c:url value="https://loccalhost:8080/${partUrl}" var="newUrl" scope="session"></c:url>
+<a href="${newUrl}">新Url</a>
 </body>
 </html>
