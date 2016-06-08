@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: liqi
   Date: 2016/6/5
@@ -110,5 +111,69 @@
         </c:when>
     </c:choose>
     <br>
+
+    <!-- forEach标签的用法 -->
+    <%
+        List animals = new ArrayList();
+        animals.add("tiger");
+        animals.add("dog");
+        animals.add("elephant");
+        animals.add("lion");
+        animals.add("bird");
+        animals.add("fish");
+        animals.add("bear");
+        request.setAttribute("animals", animals);
+    %>
+
+    <c:forEach var="ani" items="${animals}">
+        <c:out value="${ani}"></c:out><br>
+    </c:forEach>
+    <c:out value="-------------------------"></c:out><br>
+    <c:forEach var="ani" items="${animals}" begin="2" end="4">
+        <c:out value="${ani}"></c:out><br>
+    </c:forEach>
+    <c:out value="-------------------------"></c:out><br>
+    <c:forEach var="ani" items="${animals}" begin="2" end="4" step="2">
+        <c:out value="${ani}"></c:out><br>
+    </c:forEach>
+    <c:out value="-------------------------"></c:out><br>
+    <c:forEach var="ani" items="${animals}" begin="2" end="4" varStatus="a">
+        <c:out value="原集合中的索引值${a.index}"></c:out><br>
+        <c:out value="总共已迭代的次数${a.count}"></c:out><br>
+        <c:out value="判断当前元素是否是子集中的第一个值${a.first}"></c:out><br>
+        <c:out value="判断当前元素是否是子集中的最后一个值${a.last}"></c:out><br>
+        <c:out value="======"></c:out><br>
+    </c:forEach><br>
+
+
+    <!-- forTokens的用法 -->
+
+    <c:forTokens items="010-88668543-1033" delims="-" var="num">
+        <c:out value="${num}"></c:out><br>
+    </c:forTokens>
+
+    <c:out value="==================="></c:out><br>
+    <c:forTokens items="苹果、橘子、香蕉、梨、葡萄、西瓜" delims="、" var="fruit" begin="1" end="3" varStatus="fru">
+        <c:out value="${fruit}"></c:out>的四个属性：<br>
+        索引值是：<c:out value="${fru.index}"></c:out><br>
+        已遍历的个数<c:out value="${fru.count}"></c:out><br>
+        是否第一个遍历<c:out value="${fru.first}"></c:out><br>
+        是否最后一个遍历<c:out value="${fru.last}"></c:out><br>
+        <c:out value="-----------------"></c:out><br>
+    </c:forTokens>
+    <br><br>
+
+    <!-- import标签的用法 -->
+    <!-- 导入网络上的绝对路径 -->
+    <c:catch var="error09">
+        <c:import url="http://www.imooc.com"></c:import>
+    </c:catch>
+    <c:out value="${error09}"></c:out><br>
+
+    <!-- 导入相对路径文件 -->
+    <c:catch var="error08">
+        <c:import url="tt.txt"></c:import>
+    </c:catch>
+    <c:out value="${error08}"></c:out><br>
 </body>
 </html>
